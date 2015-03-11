@@ -4,18 +4,65 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
 import com.parse.*;
+import java.util.List;
+import android.view.LayoutInflater;
+import android.content.Context;
+import android.util.Log;
+import android.widget.TextView;
 
 public class AnnouncementList extends ActionBarActivity {
+
+    private LayoutInflater inflater;
+    private ParseQueryAdapter<ParseAnnouncement> parseAnnouncementAdapter;
+
+    private ListView announcementListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_list);
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("Make it", "all manageable");
-        testObject.saveInBackground();
+        /*ParsePush.subscribeInBackground("Reload");
+
+        announcementListView = (ListView) findViewById(R.id.announcementListView);
+        updateAnnouncementList();
+        System.out.println("Annonucements: "+announcements.length);*/
+
+        announcementListView = (ListView) findViewById(R.id.announcementListView);
+
+        // Set up the Parse query to use in the adapter
+        ParseQueryAdapter.QueryFactory<ParseAnnouncement> factory = new ParseQueryAdapter.QueryFactory<ParseAnnouncement>() {
+            public ParseQuery<ParseAnnouncement> create() {
+                ParseQuery<ParseAnnouncement> query = ParseAnnouncement.getQuery();
+                query.orderByDescending("createdAt");
+                query.fromLocalDatastore();
+                return query;
+            }
+        };
+
+        // Set up the adapter
+        inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        parseAnnouncementAdapter = new ParseAnnouncementAdapter(this, factory);
+
+
+        // Attach the query adapter to the view
+        ListView announcementListView = (ListView) findViewById(R.id.announcementListView);
+        announcementListView.setAdapter(parseAnnouncementAdapter);
+
+        parseAnnouncementAdapter.loadObjects();
+        loadFromParse();
+    }
+
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        parseAnnouncementAdapter.loadObjects();
+        loadFromParse();
     }
 
 
@@ -37,7 +84,72 @@ public class AnnouncementList extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_refresh) {
+            /*System.out.println("Before refresh annonucements: " + announcements.length);
+            updateAnnouncementList();
+            System.out.println("After refresh annonucements: "+announcements.length);*/
+
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
+    private void loadFromParse() {
+        ParseQuery<ParseAnnouncement> query = ParseAnnouncement.getQuery();
+        query.whereEqualTo("author", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<ParseAnnouncement>() {
+            public void done(List<ParseAnnouncement> announcements, ParseException e) {
+                if (e == null) {
+                    ParseObject.pinAllInBackground((List<ParseAnnouncement>) announcements,
+                            new SaveCallback() {
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        if (!isFinishing()) {
+                                            parseAnnouncementAdapter.loadObjects();
+                                        }
+                                    } else {
+                                        Log.i("TodoListActivity",
+                                                "Error pinning todos: "
+                                                        + e.getMessage());
+                                    }
+                                }
+                            });
+                } else {
+                    Log.i("TodoListActivity",
+                            "loadFromParse: Error finding pinned todos: "
+                                    + e.getMessage());
+                }
+            }
+        });
+    }
+    private class ParseAnnouncementAdapter extends ParseQueryAdapter<ParseAnnouncement> {
+
+        public ParseAnnouncementAdapter(Context context,
+                                        ParseQueryAdapter.QueryFactory<ParseAnnouncement> queryFactory) {
+            super(context, queryFactory);
+        }
+
+        @Override
+        public View getItemView(ParseAnnouncement announcement, View view, ViewGroup parent) {
+            ViewHolder holder;
+            if (view == null) {
+                view = inflater.inflate(R.layout.announcement_list_item, parent, false);
+                holder = new ViewHolder();
+                holder.announcementTitle = (TextView) view
+                        .findViewById(R.id.annoncement_title);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolder) view.getTag();
+            }
+            TextView announcementTitle = holder.announcementTitle;
+            announcementTitle.setText(announcement.getTitle());
+
+            return view;
+        }
+    }
+
+    private static class ViewHolder {
+        TextView announcementTitle;
+    }
 }
+

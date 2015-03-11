@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/annoncement_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Course"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        />
+
+    <TextView
+        android:id="@+id/annoncement_date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Grade"
+        android:layout_below="@id/annoncement_title"
+        android:layout_alignLeft="@id/annoncement_title"
+        android:layout_alignStart="@id/annoncement_title"
+        />
+</RelativeLayout>
