@@ -14,8 +14,8 @@
       to match your app's package name + ".permission.C2D_MESSAGE".
     -->
     <permission android:protectionLevel="signature"
-        android:name=".App.permission.C2D_MESSAGE" />
-    <uses-permission android:name=".App.permission.C2D_MESSAGE" />
+        android:name="com.osapps.stepapp.permission.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.osapps.stepapp.permission.permission.C2D_MESSAGE" />
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -47,7 +47,7 @@
                 <!--
                   IMPORTANT: Change "com.parse.tutorials.pushnotifications" to match your app's package name.
                 -->
-                <category android:name=".App" />
+                <category android:name="com.osapps.stepapp.permission" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.parse.ParsePushBroadcastReceiver" android:exported="false">

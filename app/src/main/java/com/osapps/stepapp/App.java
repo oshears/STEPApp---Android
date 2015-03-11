@@ -19,6 +19,8 @@ public class App extends Application {
     @Override public void onCreate() {
         super.onCreate();
 
+        System.out.println("I AM BORN!");
+
         ParseObject.registerSubclass(ParseAnnouncement.class);
 
         // Enable Local Datastore.
@@ -26,20 +28,21 @@ public class App extends Application {
         Parse.initialize(this, "QaWUilnbC0lQoBcjrYXkEos4vOZYmCxoDyEXYAba", "6kM74pku4lgflvu9HQbequLoRjqJ3WA78Ci6l4VC");
 
 
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        ParseACL.setDefaultACL(defaultACL, true);
 
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
                     Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
+                    System.out.println("PUSH NOTIFICATIONS WERE INITITALIZED!");
                 } else {
                     Log.e("com.parse.push", "failed to subscribe for push", e);
+                    System.out.println("PUSH NOTIFICATIONS NOT INITITALIZED!");
                 }
+                System.out.println("WHAT ARE PUSH NOTIFICATIONS?! Is one above me?");
             }
         });
+
 
     }
 }

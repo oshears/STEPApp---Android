@@ -27,11 +27,9 @@ public class AnnouncementList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_list);
 
-        /*ParsePush.subscribeInBackground("Reload");
-
-        announcementListView = (ListView) findViewById(R.id.announcementListView);
-        updateAnnouncementList();
-        System.out.println("Annonucements: "+announcements.length);*/
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
 
         announcementListView = (ListView) findViewById(R.id.announcementListView);
 
@@ -56,6 +54,8 @@ public class AnnouncementList extends ActionBarActivity {
 
         parseAnnouncementAdapter.loadObjects();
         loadFromParse();
+
+
     }
 
     @Override
@@ -85,9 +85,6 @@ public class AnnouncementList extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_refresh) {
-            /*System.out.println("Before refresh annonucements: " + announcements.length);
-            updateAnnouncementList();
-            System.out.println("After refresh annonucements: "+announcements.length);*/
 
             return true;
         }
