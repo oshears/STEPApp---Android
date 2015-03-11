@@ -1,9 +1,10 @@
 package com.osapps.stepapp;
 import com.parse.*;
 
-@ParseClassName("Announcements")
+@ParseClassName("Announcement")
 public class ParseAnnouncement extends ParseObject {
     public String getTitle() {
+        System.out.println("Announcement Title:"+getString("title"));
         return getString("title");
     }
 

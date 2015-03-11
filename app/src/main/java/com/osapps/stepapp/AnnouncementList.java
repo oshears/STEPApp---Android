@@ -96,27 +96,28 @@ public class AnnouncementList extends ActionBarActivity {
     }
     private void loadFromParse() {
         ParseQuery<ParseAnnouncement> query = ParseAnnouncement.getQuery();
-        query.whereEqualTo("author", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<ParseAnnouncement>() {
             public void done(List<ParseAnnouncement> announcements, ParseException e) {
                 if (e == null) {
                     ParseObject.pinAllInBackground((List<ParseAnnouncement>) announcements,
                             new SaveCallback() {
                                 public void done(ParseException e) {
+                                    System.out.println("Got an error at the inner");
                                     if (e == null) {
                                         if (!isFinishing()) {
                                             parseAnnouncementAdapter.loadObjects();
                                         }
                                     } else {
-                                        Log.i("TodoListActivity",
-                                                "Error pinning todos: "
+                                        Log.i("AnnouncementActivity",
+                                                "Error pinning announcements: "
                                                         + e.getMessage());
                                     }
                                 }
                             });
                 } else {
-                    Log.i("TodoListActivity",
-                            "loadFromParse: Error finding pinned todos: "
+                    System.out.println("Got an error at the outer");
+                    Log.i("AnnouncementActivity",
+                            "loadFromParse: Error finding pinned announcements: "
                                     + e.getMessage());
                 }
             }
