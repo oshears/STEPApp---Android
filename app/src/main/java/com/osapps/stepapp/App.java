@@ -2,36 +2,34 @@ package com.osapps.stepapp;
 
 import android.app.Application;
 import com.parse.Parse;
-import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseObject;
-import com.parse.ParsePushBroadcastReceiver;
-import com.parse.PushService;
 import com.parse.SaveCallback;
 import com.parse.ParseException;
 import android.util.Log;
-import com.parse.ParseUser;
-import com.parse.ParseACL;
-
+import android.content.Context;
 
 public class App extends Application {
 
     public static final String ANNOUNCEMENT_GROUP_NAME = "ALL_ANNOUNCEMENTSS";
+    private static App instance = new App();
 
+    public App() {
+        instance = this;
+    }
+
+    public static Context getContext() {
+        return instance;
+    }
 
     @Override public void onCreate() {
         super.onCreate();
 
-
-
-
-
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "NU52KuQGosFJb0ZBDebqcjtJaqwS1QRP7jaknnVB", "hgw0WhEQ5fGSCa6n8SQ61YchqidnKTf0YVBOObLE");
 
         ParseObject.registerSubclass(ParseAnnouncement.class);
-
-        Parse.initialize(this, "QaWUilnbC0lQoBcjrYXkEos4vOZYmCxoDyEXYAba", "6kM74pku4lgflvu9HQbequLoRjqJ3WA78Ci6l4VC");
 
 
         //Enable Push Notifications
@@ -43,11 +41,13 @@ public class App extends Application {
                     System.out.println("PUSH NOTIFICATIONS WERE INITITALIZED!");
                 } else {
                     Log.e("com.parse.push", "failed to subscribe for push", e);
-                    System.out.println("PUSH NOTIFICATIONS NOT INITITALIZED!");
                 }
-                System.out.println("WHAT ARE PUSH NOTIFICATIONS?! Is one above me?");
             }
         });
+
+        ParsePush.subscribeInBackground("Reload");
+
+
 
 
 

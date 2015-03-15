@@ -29,7 +29,6 @@ public class AnnouncementList extends ActionBarActivity {
 
 
 
-
         announcementListView = (ListView) findViewById(R.id.announcementListView);
 
         // Set up the Parse query to use in the adapter
