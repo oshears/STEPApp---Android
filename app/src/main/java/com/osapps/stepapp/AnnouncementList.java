@@ -27,9 +27,8 @@ public class AnnouncementList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_list);
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
+
+
 
         announcementListView = (ListView) findViewById(R.id.announcementListView);
 
@@ -54,6 +53,10 @@ public class AnnouncementList extends ActionBarActivity {
 
         parseAnnouncementAdapter.loadObjects();
         loadFromParse();
+
+
+
+
 
 
     }

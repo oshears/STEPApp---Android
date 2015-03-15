@@ -2,8 +2,11 @@ package com.osapps.stepapp;
 
 import android.app.Application;
 import com.parse.Parse;
+import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseObject;
+import com.parse.ParsePushBroadcastReceiver;
+import com.parse.PushService;
 import com.parse.SaveCallback;
 import com.parse.ParseException;
 import android.util.Log;
@@ -19,16 +22,19 @@ public class App extends Application {
     @Override public void onCreate() {
         super.onCreate();
 
-        System.out.println("I AM BORN!");
 
-        ParseObject.registerSubclass(ParseAnnouncement.class);
+
+
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
+
+        ParseObject.registerSubclass(ParseAnnouncement.class);
+
         Parse.initialize(this, "QaWUilnbC0lQoBcjrYXkEos4vOZYmCxoDyEXYAba", "6kM74pku4lgflvu9HQbequLoRjqJ3WA78Ci6l4VC");
 
 
-
+        //Enable Push Notifications
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -42,6 +48,8 @@ public class App extends Application {
                 System.out.println("WHAT ARE PUSH NOTIFICATIONS?! Is one above me?");
             }
         });
+
+
 
 
     }
