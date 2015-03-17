@@ -3,6 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".AnnouncementList">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_miscellaneous" android:title="@string/action_miscellaneous"
+        android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_refresh" android:title="@string/action_refresh"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_calendar" android:title="@string/action_calendar"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_people" android:title="@string/action_people"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_map" android:title="@string/action_map"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_faqs" android:title="@string/action_faqs"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_admin" android:title="@string/action_admin"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
