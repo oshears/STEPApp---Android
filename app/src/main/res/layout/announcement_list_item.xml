@@ -7,7 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:id="@+id/annoncement_title"
+        android:id="@+id/announcement_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Course"
@@ -21,8 +21,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Grade"
-        android:layout_below="@id/annoncement_title"
-        android:layout_alignLeft="@id/annoncement_title"
-        android:layout_alignStart="@id/annoncement_title"
+        android:layout_below="@id/announcement_title"
+        android:layout_alignLeft="@id/announcement_title"
+        android:layout_alignStart="@id/announcement_title"
         />
 </RelativeLayout>

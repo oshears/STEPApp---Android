@@ -1,11 +1,15 @@
 package com.osapps.stepapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.parse.*;
 import java.util.List;
@@ -27,7 +31,7 @@ public class AnnouncementList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_list);
 
-
+        final AnnouncementList caller = this;
 
         announcementListView = (ListView) findViewById(R.id.announcementListView);
 
@@ -47,13 +51,20 @@ public class AnnouncementList extends ActionBarActivity {
 
 
         // Attach the query adapter to the view
-        ListView announcementListView = (ListView) findViewById(R.id.announcementListView);
+        final ListView announcementListView = (ListView) findViewById(R.id.announcementListView);
         announcementListView.setAdapter(parseAnnouncementAdapter);
 
         parseAnnouncementAdapter.loadObjects();
         loadFromParse();
 
-
+        announcementListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> a, View v, int position,long id) {
+                final int pos = position;
+                // Open the edit entry activity
+                ParseAnnouncement clicked = (ParseAnnouncement) announcementListView.getItemAtPosition(position);
+                viewDetailedAnnouncement(caller, clicked);
+            }
+        });
 
 
 
@@ -61,7 +72,7 @@ public class AnnouncementList extends ActionBarActivity {
     }
 
     @Override
-    protected  void onResume(){
+    protected void onResume(){
         super.onResume();
         parseAnnouncementAdapter.loadObjects();
         loadFromParse();
@@ -92,6 +103,13 @@ public class AnnouncementList extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void viewDetailedAnnouncement(AnnouncementList caller, ParseAnnouncement announcement){
+        Intent viewAnnouncementDetails = new Intent(caller,AnnouncementDetail.class);
+        viewAnnouncementDetails.putExtra("announcementTitle",announcement.getTitle());
+        viewAnnouncementDetails.putExtra("announcementDate",announcement.getPosttime());
+        viewAnnouncementDetails.putExtra("announcementContent",announcement.getConent());
+        startActivityForResult(viewAnnouncementDetails,1);
     }
     private void loadFromParse() {
         ParseQuery<ParseAnnouncement> query = ParseAnnouncement.getQuery();
@@ -136,13 +154,17 @@ public class AnnouncementList extends ActionBarActivity {
                 view = inflater.inflate(R.layout.announcement_list_item, parent, false);
                 holder = new ViewHolder();
                 holder.announcementTitle = (TextView) view
-                        .findViewById(R.id.annoncement_title);
+                        .findViewById(R.id.announcement_title);
+                holder.announcementDate = (TextView) view.findViewById(R.id.annoncement_date);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();
             }
             TextView announcementTitle = holder.announcementTitle;
+            TextView announcementDate = holder.announcementDate;
+
             announcementTitle.setText(announcement.getTitle());
+            announcementDate.setText(announcement.getPosttime());
 
             return view;
         }
@@ -150,6 +172,10 @@ public class AnnouncementList extends ActionBarActivity {
 
     private static class ViewHolder {
         TextView announcementTitle;
+        TextView announcementContent;
+        TextView announcementDate;
     }
+
+
 }
 
