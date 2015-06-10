@@ -8,5 +8,7 @@
     <string name="action_faqs">FAQs</string>
     <string name="action_admin">Admin</string>
     <string name="action_miscellaneous">Miscellaneous</string>
+    <string name="action_announcements">Announcements</string>
     <string name="announcements_header">General Announcements</string>
+    <string name="miscannouncements_header">Miscellaneous Announcements</string>
 </resources>

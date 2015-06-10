@@ -3,7 +3,6 @@ package com.osapps.stepapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.nfc.tech.MifareClassic;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,8 +18,11 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
-public class AnnouncementList extends ActionBarActivity {
-
+/**
+ * Created by Osaze on 6/10/15.
+ */
+public class CalendarList extends ActionBarActivity {
+    /*
     private LayoutInflater inflater;
     private ParseQueryAdapter<ParseAnnouncement> parseAnnouncementAdapter;
 
@@ -96,9 +98,6 @@ public class AnnouncementList extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_miscellaneous) {
-            Intent miscAnnouncements = new Intent(this,MiscAnnouncementList.class);
-
-            startActivityForResult(miscAnnouncements,1);
             return true;
         }
         if (id == R.id.action_refresh) {
@@ -176,10 +175,8 @@ public class AnnouncementList extends ActionBarActivity {
 
     private static class ViewHolder {
         TextView announcementTitle;
-        //TextView announcementContent;
+        TextView announcementContent;
         TextView announcementDate;
     }
-
-
+    */
 }
-

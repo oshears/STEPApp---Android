@@ -15,4 +15,6 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_admin" android:title="@string/action_admin"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_announcements" android:title="@string/action_announcements"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>
