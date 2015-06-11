@@ -11,4 +11,5 @@
     <string name="action_announcements">Announcements</string>
     <string name="announcements_header">General Announcements</string>
     <string name="miscannouncements_header">Miscellaneous Announcements</string>
+    <string name="calendar_header">Calendar</string>
 </resources>

@@ -30,7 +30,8 @@ public class App extends Application {
         Parse.initialize(this, "NU52KuQGosFJb0ZBDebqcjtJaqwS1QRP7jaknnVB", "hgw0WhEQ5fGSCa6n8SQ61YchqidnKTf0YVBOObLE");
 
         ParseObject.registerSubclass(ParseAnnouncement.class);
-
+        ParseObject.registerSubclass(ParseMiscAnnouncement.class);
+        ParseObject.registerSubclass(ParseCalendar.class);
 
         //Enable Push Notifications
         ParsePush.subscribeInBackground("", new SaveCallback() {

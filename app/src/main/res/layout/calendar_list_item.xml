@@ -7,4 +7,71 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <TextView
+        android:id="@+id/calendar_month"
+        android:layout_width="59sp"
+        android:layout_height="wrap_content"
+        android:text="June"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        android:background="@android:color/holo_green_dark"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <TextView
+        android:id="@+id/calendar_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="23"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:layout_below="@id/calendar_month"
+        android:background="@android:color/darker_gray"
+        android:layout_alignRight="@id/calendar_month"
+        android:layout_alignStart="@id/calendar_month"
+        android:layout_alignLeft="@id/calendar_month"
+        android:layout_alignEnd="@id/calendar_month"
+        android:layout_marginTop="-6dp"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <TextView
+        android:id="@+id/calendar_date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@id/calendar_month"
+        />
+
+    <TextView
+        android:id="@+id/calendar_activity1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity1"
+        android:layout_below="@id/calendar_date"
+        android:layout_alignLeft="@id/calendar_date"
+        android:layout_alignStart="@id/calendar_date"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:id="@+id/calendar_activity2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity2"
+        android:layout_below="@id/calendar_activity1"
+        android:layout_alignLeft="@id/calendar_activity1"
+        android:layout_alignStart="@id/calendar_activity1"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:id="@+id/calendar_activity3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity3"
+        android:layout_below="@id/calendar_activity2"
+        android:layout_alignLeft="@id/calendar_activity2"
+        android:layout_alignStart="@id/calendar_activity2"
+        />
 </RelativeLayout>

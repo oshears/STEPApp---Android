@@ -22,26 +22,26 @@ import android.widget.TextView;
  * Created by Osaze on 6/10/15.
  */
 public class CalendarList extends ActionBarActivity {
-    /*
-    private LayoutInflater inflater;
-    private ParseQueryAdapter<ParseAnnouncement> parseAnnouncementAdapter;
 
-    private ListView announcementListView;
+    private LayoutInflater inflater;
+    private ParseQueryAdapter<ParseCalendar> parseCalendarAdapter;
+
+    private ListView calendarListView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_announcement_list);
+        setContentView(R.layout.activity_calendar_list);
 
-        final AnnouncementList caller = this;
+        final CalendarList caller = this;
 
-        announcementListView = (ListView) findViewById(R.id.announcementListView);
+        calendarListView = (ListView) findViewById(R.id.calendarListView);
 
         // Set up the Parse query to use in the adapter
-        ParseQueryAdapter.QueryFactory<ParseAnnouncement> factory = new ParseQueryAdapter.QueryFactory<ParseAnnouncement>() {
-            public ParseQuery<ParseAnnouncement> create() {
-                ParseQuery<ParseAnnouncement> query = ParseAnnouncement.getQuery();
+        ParseQueryAdapter.QueryFactory<ParseCalendar> factory = new ParseQueryAdapter.QueryFactory<ParseCalendar>() {
+            public ParseQuery<ParseCalendar> create() {
+                ParseQuery<ParseCalendar> query = ParseCalendar.getQuery();
                 query.orderByDescending("createdAt");
                 query.fromLocalDatastore();
                 return query;
@@ -50,22 +50,22 @@ public class CalendarList extends ActionBarActivity {
 
         // Set up the adapter
         inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        parseAnnouncementAdapter = new ParseAnnouncementAdapter(this, factory);
+        parseCalendarAdapter = new ParseCalendarAdapter(this, factory);
 
 
         // Attach the query adapter to the view
-        final ListView announcementListView = (ListView) findViewById(R.id.announcementListView);
-        announcementListView.setAdapter(parseAnnouncementAdapter);
+        final ListView calendarListView = (ListView) findViewById(R.id.calendarListView);
+        calendarListView.setAdapter(parseCalendarAdapter);
 
-        parseAnnouncementAdapter.loadObjects();
+        parseCalendarAdapter.loadObjects();
         loadFromParse();
 
-        announcementListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> a, View v, int position,long id) {
                 final int pos = position;
                 // Open the edit entry activity
-                ParseAnnouncement clicked = (ParseAnnouncement) announcementListView.getItemAtPosition(position);
-                viewDetailedAnnouncement(caller, clicked);
+                ParseCalendar clicked = (ParseCalendar) calendarListView.getItemAtPosition(position);
+                viewDetailedCalendar(caller, clicked);
             }
         });
 
@@ -77,7 +77,7 @@ public class CalendarList extends ActionBarActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        parseAnnouncementAdapter.loadObjects();
+        parseCalendarAdapter.loadObjects();
         loadFromParse();
     }
 
@@ -85,7 +85,7 @@ public class CalendarList extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_announcement_list, menu);
+        getMenuInflater().inflate(R.menu.menu_calendar_list, menu);
         return true;
     }
 
@@ -107,76 +107,76 @@ public class CalendarList extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    private void viewDetailedAnnouncement(AnnouncementList caller, ParseAnnouncement announcement){
-        Intent viewAnnouncementDetails = new Intent(caller,AnnouncementDetail.class);
-        viewAnnouncementDetails.putExtra("announcementTitle",announcement.getTitle());
-        viewAnnouncementDetails.putExtra("announcementDate",announcement.getPosttime());
-        viewAnnouncementDetails.putExtra("announcementContent",announcement.getConent());
-        startActivityForResult(viewAnnouncementDetails,1);
+    private void viewDetailedCalendar(CalendarList caller, ParseCalendar calendar){
+        Intent viewCalendarDetails = new Intent(caller,CalendarDetail.class);
+        viewCalendarDetails.putExtra("calendarTitle",calendar.getTitle());
+        viewCalendarDetails.putExtra("calendarDate",calendar.getPosttime());
+        viewCalendarDetails.putExtra("calendarContent",calendar.getConent());
+        startActivityForResult(viewCalendarDetails,1);
     }
     private void loadFromParse() {
-        ParseQuery<ParseAnnouncement> query = ParseAnnouncement.getQuery();
-        query.findInBackground(new FindCallback<ParseAnnouncement>() {
-            public void done(List<ParseAnnouncement> announcements, ParseException e) {
+        ParseQuery<ParseCalendar> query = ParseCalendar.getQuery();
+        query.findInBackground(new FindCallback<ParseCalendar>() {
+            public void done(List<ParseCalendar> calendars, ParseException e) {
                 if (e == null) {
-                    ParseObject.pinAllInBackground((List<ParseAnnouncement>) announcements,
+                    ParseObject.pinAllInBackground((List<ParseCalendar>) calendars,
                             new SaveCallback() {
                                 public void done(ParseException e) {
                                     System.out.println("Got an error at the inner");
                                     if (e == null) {
                                         if (!isFinishing()) {
-                                            parseAnnouncementAdapter.loadObjects();
+                                            parseCalendarAdapter.loadObjects();
                                         }
                                     } else {
-                                        Log.i("AnnouncementActivity",
-                                                "Error pinning announcements: "
+                                        Log.i("CalendarActivity",
+                                                "Error pinning calendars: "
                                                         + e.getMessage());
                                     }
                                 }
                             });
                 } else {
                     System.out.println("Got an error at the outer");
-                    Log.i("AnnouncementActivity",
-                            "loadFromParse: Error finding pinned announcements: "
+                    Log.i("CalendarActivity",
+                            "loadFromParse: Error finding pinned calendars: "
                                     + e.getMessage());
                 }
             }
         });
     }
-    private class ParseAnnouncementAdapter extends ParseQueryAdapter<ParseAnnouncement> {
+    private class ParseCalendarAdapter extends ParseQueryAdapter<ParseCalendar> {
 
-        public ParseAnnouncementAdapter(Context context,
-                                        ParseQueryAdapter.QueryFactory<ParseAnnouncement> queryFactory) {
+        public ParseCalendarAdapter(Context context,
+                                        ParseQueryAdapter.QueryFactory<ParseCalendar> queryFactory) {
             super(context, queryFactory);
         }
 
         @Override
-        public View getItemView(ParseAnnouncement announcement, View view, ViewGroup parent) {
+        public View getItemView(ParseCalendar calendar, View view, ViewGroup parent) {
             ViewHolder holder;
             if (view == null) {
-                view = inflater.inflate(R.layout.announcement_list_item, parent, false);
+                view = inflater.inflate(R.layout.calendar_list_item, parent, false);
                 holder = new ViewHolder();
-                holder.announcementTitle = (TextView) view
-                        .findViewById(R.id.announcement_title);
-                holder.announcementDate = (TextView) view.findViewById(R.id.annoncement_date);
+                holder.calendarTitle = (TextView) view
+                        .findViewById(R.id.calendar_title);
+                holder.calendarDate = (TextView) view.findViewById(R.id.calendar_date);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();
             }
-            TextView announcementTitle = holder.announcementTitle;
-            TextView announcementDate = holder.announcementDate;
+            TextView calendarTitle = holder.calendarTitle;
+            TextView calendarDate = holder.calendarDate;
 
-            announcementTitle.setText(announcement.getTitle());
-            announcementDate.setText(announcement.getPosttime());
+            calendarTitle.setText(calendar.getTitle());
+            calendarDate.setText(calendar.getPosttime());
 
             return view;
         }
     }
 
     private static class ViewHolder {
-        TextView announcementTitle;
-        TextView announcementContent;
-        TextView announcementDate;
+        TextView calendarTitle;
+        TextView calendarContent;
+        TextView calendarDate;
     }
-    */
+
 }
