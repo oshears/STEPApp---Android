@@ -12,7 +12,7 @@ public class ParseCalendar extends ParseObject {
 
         Date date = getDate("date");
         String dayOfTheWeek = (String) android.text.format.DateFormat.format("EEEE", date);//Thursday
-        String stringMonth = (String) android.text.format.DateFormat.format("MMM", date); //Jun
+        String stringMonth = (String) android.text.format.DateFormat.format("MMMM", date); //Jun
         String intMonth = (String) android.text.format.DateFormat.format("MM", date); //06
         String year = (String) android.text.format.DateFormat.format("yyyy", date); //2013
         String day = (String) android.text.format.DateFormat.format("dd", date); //20
