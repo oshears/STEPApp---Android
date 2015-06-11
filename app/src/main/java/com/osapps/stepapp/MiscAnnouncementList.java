@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -78,7 +77,7 @@ public class MiscAnnouncementList extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_announcement_list, menu);
+        getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
     }
 
@@ -98,7 +97,12 @@ public class MiscAnnouncementList extends ActionBarActivity {
         }
         if (id == R.id.action_announcements){
             Intent announcements = new Intent(this,AnnouncementList.class);
-            startActivityForResult(announcements,1);
+            startActivity(announcements);
+            return true;
+        }
+        if (id == R.id.action_calendar) {
+            Intent calendarView = new Intent(this,CalendarList.class);
+            startActivity(calendarView);
             return true;
         }
 
@@ -143,7 +147,6 @@ public class MiscAnnouncementList extends ActionBarActivity {
         @Override
         public View getItemView(ParseMiscAnnouncement miscAnnouncement, View view, ViewGroup parent) {
             ViewHolder holder;
-            System.out.println("Entering the dragon...");
             if (view == null) {
                 view = inflater.inflate(R.layout.miscellaneous_list_item, parent, false);
                 holder = new ViewHolder();
@@ -159,8 +162,6 @@ public class MiscAnnouncementList extends ActionBarActivity {
 
             miscAnnouncementContent.setText(miscAnnouncement.getConent());
             miscAnnouncementDate.setText(miscAnnouncement.getPosttime());
-
-            System.out.println("done2");
             return view;
         }
     }

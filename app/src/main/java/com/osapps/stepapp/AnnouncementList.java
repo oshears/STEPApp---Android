@@ -1,9 +1,6 @@
 package com.osapps.stepapp;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.nfc.tech.MifareClassic;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -83,7 +80,7 @@ public class AnnouncementList extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_announcement_list, menu);
+        getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
     }
 
@@ -98,7 +95,12 @@ public class AnnouncementList extends ActionBarActivity {
         if (id == R.id.action_miscellaneous) {
             Intent miscAnnouncements = new Intent(this,MiscAnnouncementList.class);
 
-            startActivityForResult(miscAnnouncements,1);
+            startActivity(miscAnnouncements);
+            return true;
+        }
+        if (id == R.id.action_calendar) {
+            Intent calendarView = new Intent(this,CalendarList.class);
+            startActivity(calendarView);
             return true;
         }
         if (id == R.id.action_refresh) {

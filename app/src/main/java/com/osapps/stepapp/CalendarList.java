@@ -1,7 +1,5 @@
 package com.osapps.stepapp;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -42,7 +40,7 @@ public class CalendarList extends ActionBarActivity {
         ParseQueryAdapter.QueryFactory<ParseCalendar> factory = new ParseQueryAdapter.QueryFactory<ParseCalendar>() {
             public ParseQuery<ParseCalendar> create() {
                 ParseQuery<ParseCalendar> query = ParseCalendar.getQuery();
-                query.orderByDescending("createdAt");
+                query.orderByAscending("date");
                 query.fromLocalDatastore();
                 return query;
             }
@@ -65,7 +63,7 @@ public class CalendarList extends ActionBarActivity {
                 final int pos = position;
                 // Open the edit entry activity
                 ParseCalendar clicked = (ParseCalendar) calendarListView.getItemAtPosition(position);
-                viewDetailedCalendar(caller, clicked);
+                //viewDetailedCalendar(caller, clicked);
             }
         });
 
@@ -85,7 +83,7 @@ public class CalendarList extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_calendar_list, menu);
+        getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
     }
 
@@ -98,6 +96,13 @@ public class CalendarList extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_miscellaneous) {
+            Intent miscAnnouncements = new Intent(this,MiscAnnouncementList.class);
+            startActivity(miscAnnouncements);
+            return true;
+        }
+        if (id == R.id.action_announcements){
+            Intent announcements = new Intent(this,AnnouncementList.class);
+            startActivity(announcements);
             return true;
         }
         if (id == R.id.action_refresh) {
@@ -109,9 +114,11 @@ public class CalendarList extends ActionBarActivity {
     }
     private void viewDetailedCalendar(CalendarList caller, ParseCalendar calendar){
         Intent viewCalendarDetails = new Intent(caller,CalendarDetail.class);
+        /*
         viewCalendarDetails.putExtra("calendarTitle",calendar.getTitle());
         viewCalendarDetails.putExtra("calendarDate",calendar.getPosttime());
         viewCalendarDetails.putExtra("calendarContent",calendar.getConent());
+        */
         startActivityForResult(viewCalendarDetails,1);
     }
     private void loadFromParse() {
@@ -156,27 +163,42 @@ public class CalendarList extends ActionBarActivity {
             if (view == null) {
                 view = inflater.inflate(R.layout.calendar_list_item, parent, false);
                 holder = new ViewHolder();
-                holder.calendarTitle = (TextView) view
-                        .findViewById(R.id.calendar_title);
-                holder.calendarDate = (TextView) view.findViewById(R.id.calendar_date);
+                holder.calendarDate = (TextView) view
+                        .findViewById(R.id.calendar_date);
+                holder.calendarActivity1 = (TextView) view.findViewById(R.id.calendar_activity1);
+                holder.calendarActivity2 = (TextView) view.findViewById(R.id.calendar_activity2);
+                holder.calendarActivity3 = (TextView) view.findViewById(R.id.calendar_activity3);
+                holder.calendarDay = (TextView) view.findViewById(R.id.calendar_day);
+                holder.calendarMonth = (TextView) view.findViewById(R.id.calendar_month);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();
             }
-            TextView calendarTitle = holder.calendarTitle;
             TextView calendarDate = holder.calendarDate;
+            TextView calendarActivity1 = holder.calendarActivity1;
+            TextView calendarActivity2 = holder.calendarActivity2;
+            TextView calendarActivity3 = holder.calendarActivity3;
+            TextView calendarDay = holder.calendarDay;
+            TextView calendarMonth = holder.calendarMonth;
 
-            calendarTitle.setText(calendar.getTitle());
-            calendarDate.setText(calendar.getPosttime());
+            calendarDate.setText(calendar.getDate());
+            calendarActivity1.setText(calendar.getActivity(1));
+            calendarActivity2.setText(calendar.getActivity(2));
+            calendarActivity3.setText(calendar.getActivity(3));
+            calendarDay.setText(calendar.getDay());
+            calendarMonth.setText(calendar.getMonth());
 
             return view;
         }
     }
 
     private static class ViewHolder {
-        TextView calendarTitle;
-        TextView calendarContent;
         TextView calendarDate;
+        TextView calendarDay;
+        TextView calendarMonth;
+        TextView calendarActivity1;
+        TextView calendarActivity2;
+        TextView calendarActivity3;
     }
 
 }
