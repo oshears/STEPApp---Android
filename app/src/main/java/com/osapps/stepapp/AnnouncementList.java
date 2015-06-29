@@ -76,6 +76,8 @@ public class AnnouncementList extends ActionBarActivity {
         loadFromParse();
     }
 
+    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,7 +96,6 @@ public class AnnouncementList extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_miscellaneous) {
             Intent miscAnnouncements = new Intent(this,MiscAnnouncementList.class);
-
             startActivity(miscAnnouncements);
             return true;
         }
@@ -103,8 +104,9 @@ public class AnnouncementList extends ActionBarActivity {
             startActivity(calendarView);
             return true;
         }
-        if (id == R.id.action_refresh) {
-
+        if (id == R.id.action_people) {
+            Intent peopleView = new Intent(this,PeopleList.class);
+            startActivity(peopleView);
             return true;
         }
 

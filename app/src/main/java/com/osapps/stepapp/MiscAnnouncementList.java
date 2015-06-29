@@ -92,9 +92,6 @@ public class MiscAnnouncementList extends ActionBarActivity {
         if (id == R.id.action_miscellaneous) {
             return true;
         }
-        if (id == R.id.action_refresh) {
-            return true;
-        }
         if (id == R.id.action_announcements){
             Intent announcements = new Intent(this,AnnouncementList.class);
             startActivity(announcements);
@@ -103,6 +100,11 @@ public class MiscAnnouncementList extends ActionBarActivity {
         if (id == R.id.action_calendar) {
             Intent calendarView = new Intent(this,CalendarList.class);
             startActivity(calendarView);
+            return true;
+        }
+        if (id == R.id.action_people) {
+            Intent peopleView = new Intent(this,PeopleList.class);
+            startActivity(peopleView);
             return true;
         }
 

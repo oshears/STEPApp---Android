@@ -9,7 +9,9 @@
     <string name="action_admin">Admin</string>
     <string name="action_miscellaneous">Miscellaneous</string>
     <string name="action_announcements">Announcements</string>
+    <string name="action_hours">Hours</string>
     <string name="announcements_header">General Announcements</string>
+    <string name="people_header">People</string>
     <string name="miscannouncements_header">Miscellaneous Announcements</string>
     <string name="calendar_header">Calendar</string>
 </resources>

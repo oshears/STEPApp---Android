@@ -105,11 +105,11 @@ public class CalendarList extends ActionBarActivity {
             startActivity(announcements);
             return true;
         }
-        if (id == R.id.action_refresh) {
-
+        if (id == R.id.action_people) {
+            Intent peopleView = new Intent(this,PeopleList.class);
+            startActivity(peopleView);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
     private void viewDetailedCalendar(CalendarList caller, ParseCalendar calendar){
