@@ -56,13 +56,16 @@ public class AnnouncementList extends ActionBarActivity {
         loadFromParse();
 
         announcementListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> a, View v, int position,long id) {
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 final int pos = position;
                 // Open the edit entry activity
                 ParseAnnouncement clicked = (ParseAnnouncement) announcementListView.getItemAtPosition(position);
                 viewDetailedAnnouncement(caller, clicked);
             }
         });
+
+
+        parseAnnouncementAdapter.notifyDataSetChanged();
 
 
 
@@ -74,6 +77,7 @@ public class AnnouncementList extends ActionBarActivity {
         super.onResume();
         parseAnnouncementAdapter.loadObjects();
         loadFromParse();
+        parseAnnouncementAdapter.notifyDataSetChanged();
     }
 
     
@@ -108,6 +112,10 @@ public class AnnouncementList extends ActionBarActivity {
             Intent peopleView = new Intent(this,PeopleList.class);
             startActivity(peopleView);
             return true;
+        }
+        if (id==R.id.action_refresh){
+            parseAnnouncementAdapter.notifyDataSetChanged();
+
         }
 
         return super.onOptionsItemSelected(item);

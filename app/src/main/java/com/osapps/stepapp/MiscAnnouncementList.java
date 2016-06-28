@@ -63,6 +63,8 @@ public class MiscAnnouncementList extends ActionBarActivity {
 
         parseMiscAnnouncementAdapter.loadObjects();
         loadFromParse();
+        parseMiscAnnouncementAdapter.notifyDataSetChanged();
+
 
     }
 
